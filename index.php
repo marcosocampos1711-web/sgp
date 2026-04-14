@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // 3. Conexão com o Banco de Dados
-require_once 'bd.php'; 
+require_once './bd.php'; 
 
 try {
     // 4. Autenticação (Verifica se está logado via auth.php)
