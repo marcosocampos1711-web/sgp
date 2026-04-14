@@ -1,0 +1,161 @@
+/* --- 1. Variáveis e Identidade Visual --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+    --pm-blue: #1a3c6d;          /* Azul Marinho PMSE */
+    --pm-blue-hover: #0f1e3a;    /* Tom mais escuro para hover */
+    --pm-gold: #c5a059;          /* Dourado PMSE */
+    --bg-light: #f4f7f9;         /* Fundo suave */
+    --white: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #94a3b8;
+    --border-color: #e0e6ed;
+}
+
+/* --- 2. Reset e Base --- */
+body {
+    font-family: 'Arial', 'Inter', 'Segoe UI', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    margin: 0;
+    min-height: 100vh;
+}
+
+img {
+    pointer-events: none;
+}
+
+/* --- 3. Estilos do Login (login.php) --- */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 45px 35px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--white);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+}
+
+.shield-icon-container {
+    width: auto;
+    height: 75px;
+    background-color: #edf2f7;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto 25px auto;
+    padding: 10px 20px;
+}
+
+.system-title {
+    font-weight: 800;
+    color: var(--text-main);
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
+
+.form-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-main);
+}
+
+.btn-login {
+    background-color: var(--pm-blue);
+    border: none;
+    padding: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: var(--pm-blue-hover);
+    transform: translateY(-1px);
+}
+
+/* --- 4. Componentes do Sistema (style.css) --- */
+.card-header, .card-header-pmse, .header-print {
+    background: var(--pm-blue);
+    color: white;
+    border-bottom: 4px solid var(--pm-gold);
+}
+
+.table-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.table thead {
+    background: #2d3436;
+    color: white;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+}
+
+/* --- 5. Marcas d'água e Impressão --- */
+.watermark1, .watermark2 {
+    position: fixed; /* fixed ou absolute */
+    opacity: 0.1;
+    z-index: -1;
+    background: none;
+    box-shadow: none;
+    mix-blend-mode: multiply;
+    width: 25vmin;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.watermark1 { top: 25%; }
+.watermark2 { top: 65%; }
+
+@media print {
+    @page {
+        size: A4;
+        margin: 10mm; /* Margem da folha */
+    }
+    .no-print { display: none !important; }
+    /* Força o preenchimento da altura da página para permitir centralização */
+    html, body {
+        background: transparent !important;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza verticalmente */
+        align-items: center;    /* Centraliza horizontalmente */
+    }
+
+    /* Garante que o conteúdo não quebre no meio se não houver necessidade */
+    .container-fluid {
+        width: 100%;
+        page-break-inside: avoid;
+    }
+}
