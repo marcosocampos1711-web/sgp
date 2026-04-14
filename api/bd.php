@@ -1,25 +1,23 @@
 <?php
-// 1. Dados de Conexão DIRETA
+// Alterar para o Host do Transaction Pooler (disponível no painel do Supabase)
 $host     = 'db.fofiwziwsabcxflguqva.supabase.co'; 
-$port     = '5432'; 
+$port     = '6543'; // Porta do Pooler é mais resiliente
 $dbname   = 'postgres';
-$user     = 'postgres'; // Na conexão direta (porta 5432), use apenas 'postgres'
+$user     = 'postgres.fofiwziwsabcxflguqva'; // Use o usuário completo para o Pooler
 $password = 'CEI/CFAP/SGP';
 
 try {
-    // 2. String de conexão simplificada
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require"; // Adicionado sslmode
     
-    // 3. Opções para forçar o SSL (Obrigatório no Supabase)
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_TIMEOUT => 5 // Timeout de 5 segundos
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_TIMEOUT => 10
     ];
 
     $pdo = new PDO($dsn, $user, $password, $options);
 
-
 } catch (PDOException $e) {
-    // Se ainda der erro, vamos imprimir o DSN para conferência (CUIDADO: remove isso depois)
-    echo "❌ Erro de Conexão: " . $e->getMessage();
+    error_log("Erro de Conexão: " . $e->getMessage());
+    exit("Erro interno no servidor."); 
 }
